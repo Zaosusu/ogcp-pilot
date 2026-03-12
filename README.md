@@ -18,6 +18,8 @@ dataset = OGCPDataset(root_dir='dataset/raw')
 print(len(dataset))  # 660
 ```
 
+> For training and inference, see [`ml/README.md`](ml/README.md).
+
 ## Data Distribution
 
 | Component | Location |
@@ -50,6 +52,8 @@ from ogcp import OGCPDataset
 dataset = OGCPDataset(root_dir='dataset/raw')
 print(len(dataset))  # 660
 ```
+
+> 训练与推理说明请见 [`ml/README.md`](ml/README.md)。
 
 ### 数据分布
 
