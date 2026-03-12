@@ -37,6 +37,32 @@ from .core import ChordSample
 # Configure logging
 logger = logging.getLogger(__name__)
 
+HF_REPO_ID = "Zaosusu/ogcp-pilot"
+
+
+def _download_from_hf(root_dir: Path) -> None:
+    """
+    Download audio files from Hugging Face if local directory is empty.
+
+    Args:
+        root_dir: Local directory to download files into.
+    """
+    try:
+        from huggingface_hub import snapshot_download
+    except ImportError:
+        raise ImportError(
+            "huggingface_hub is required for auto-download. "
+            "Install with: pip install huggingface_hub"
+        )
+
+    print(f"Local dataset not found. Downloading from Hugging Face ({HF_REPO_ID})...")
+    snapshot_download(
+        repo_id=HF_REPO_ID,
+        repo_type="dataset",
+        local_dir=str(root_dir),
+    )
+    print(f"Download complete. Files saved to: {root_dir}")
+
 
 def load_jams_annotation(jams_path: Union[str, Path]) -> Dict[str, Any]:
     """
@@ -264,6 +290,12 @@ class OGCPDataset(Dataset):
             raise FileNotFoundError(f"Dataset directory not found: {self.root_dir}")
         
         wav_files = list(self.root_dir.rglob("*.wav"))
+        
+        # Auto-download from Hugging Face if no WAV files found locally
+        if not wav_files:
+            _download_from_hf(self.root_dir)
+            wav_files = list(self.root_dir.rglob("*.wav"))
+        
         logger.info(f"Found {len(wav_files)} WAV files in {self.root_dir}")
         
         skipped_count = 0
