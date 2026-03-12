@@ -2,6 +2,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Hugging Face Datasets](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue)](https://huggingface.co/datasets/Zaosusu/ogcp-pilot)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18979053.svg)](https://doi.org/10.5281/zenodo.18979053)
 
 > **English** | [中文介绍](#中文介绍)
 
@@ -81,7 +82,8 @@ print(len(dataset))  # 660
   title = {OGCP Pilot: A Physics-Aware Guitar Chord Dataset},
   year = {2026},
   version = {1.0},
-  publisher = {Hugging Face},
-  url = {https://huggingface.co/datasets/Zaosusu/ogcp-pilot}
+  publisher = {Zenodo},
+  doi = {10.5281/zenodo.18979053},
+  url = {https://doi.org/10.5281/zenodo.18979053}
 }
 ```
