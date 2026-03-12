@@ -1,3 +1,109 @@
+# OGCP Machine Learning — Chord Recognition
+
+**Task**: 14-class guitar chord classification  
+**Model**: Mel Spectrogram + CNN  
+**Framework**: PyTorch + torchaudio + soundfile
+
+> **English** | [中文](#中文)
+
+---
+
+## Installation
+
+```bash
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
+pip install numpy soundfile matplotlib
+```
+
+> Tested on RTX 5070 Ti with CUDA 12.8.  
+> Uses soundfile for audio loading — no FFmpeg required.
+
+---
+
+## File Overview
+
+| File | Description |
+|:---|:---|
+| `dataset.py` | Data loading & Mel spectrogram extraction, with mic simulation augmentation (`_simulate_mic`, 50% trigger rate) |
+| `dataset1.py` | Same as above, clean version without augmentation — use for ablation experiments |
+| `model.py` | CNN model definition |
+| `train.py` | Training script (auto-generates training curves) |
+| `predict.py` | Inference script |
+
+---
+
+## Quick Start
+
+All commands should be run from the **project root directory**.
+
+### 1. Training
+
+```bash
+# Default settings (small model, 50 epochs)
+python ml/train.py --data_dir dataset/raw
+
+# Custom settings
+python ml/train.py \
+    --data_dir   dataset/raw \
+    --epochs     80 \
+    --batch_size 32 \
+    --lr         3e-4 \
+    --model      small
+```
+
+After training, the following files are auto-generated in `models/`:
+
+- `best_model.pth` — Best model weights (by validation accuracy)
+- `train_log.csv` — Per-epoch loss / accuracy log
+- `training_curves.png` — Loss & Accuracy training curves
+
+### 2. Inference
+
+```bash
+# Single file
+python ml/predict.py --wav dataset/raw/C/open-down-enya-direct-001.wav
+
+# Batch test on a chord folder
+python ml/predict.py --wav_dir dataset/raw/Am
+```
+
+---
+
+## Model Details
+
+| Model | Parameters | Recommended Use |
+|-------|------------|-----------------|
+| `small` | ~620K | Best for 660-sample dataset, less prone to overfitting |
+| `large` | ~2M | Use after data augmentation or dataset expansion |
+
+### Input Processing
+
+- Sample rate: 44100 Hz (matches Enya NEXG2 direct recording in Cubase)
+- Mel bins: 128
+- Time frames: 128 (~1.49s, zero-padded if shorter, truncated if longer)
+- Normalization: Z-score per sample
+
+### Training Strategy
+
+- Label Smoothing 0.1 — reduces overfitting
+- AdamW + Cosine LR Decay
+- Data augmentation: random volume ±3dB + random time shift
+- Gradient Clipping (max_norm=1.0)
+
+---
+
+## Next Steps
+
+1. **Ablation study**: MFCC vs Mel vs CQT feature comparison
+2. **Increasing difficulty**: random split → position split → technique split
+3. **Baseline**: SVM + MFCC as traditional method comparison
+4. **Visualization**: t-SNE embedding space + Grad-CAM heatmaps
+5. **Data expansion**: more chord types, acoustic guitar mic recordings, electric guitar recordings
+
+---
+
+## 中文
+
 # OGCP 机器学习 — 和弦识别
 
 **任务**: 14 类吉他和弦分类  
