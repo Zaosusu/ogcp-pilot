@@ -15,9 +15,6 @@ pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
 pip install numpy soundfile matplotlib
 ```
 
-> Tested on RTX 5070 Ti with CUDA 12.8.  
-> Uses soundfile for audio loading — no FFmpeg required.
-
 ---
 
 ## File Overview
@@ -78,7 +75,7 @@ python ml/predict.py --wav_dir dataset/raw/Am
 
 ### Input Processing
 
-- Sample rate: 44100 Hz (matches Enya NEXG2 direct recording in Cubase)
+- Sample rate: 44100 Hz
 - Mel bins: 128
 - Time frames: 128 (~1.49s, zero-padded if shorter, truncated if longer)
 - Normalization: Z-score per sample
@@ -118,9 +115,6 @@ python ml/predict.py --wav_dir dataset/raw/Am
 pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
 pip install numpy soundfile matplotlib
 ```
-
-> RTX 5070 Ti 用 CUDA 12.8，上面命令已匹配。  
-> 使用 soundfile 读取音频，无需安装 FFmpeg。
 
 ---
 
@@ -182,7 +176,7 @@ python ml/predict.py --wav_dir dataset/raw/Am
 
 ### 输入处理
 
-- 采样率：44100 Hz（匹配恩雅 NEXG2 直进 Cubase 录音）
+- 采样率：44100 Hz
 - Mel bins：128
 - 时间帧：128 帧（约 1.49 秒，不足补零，超出截断）
 - 归一化：Z-score per sample
