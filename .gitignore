@@ -1,0 +1,22 @@
+﻿# Audio files (too large, host on Hugging Face)
+*.wav
+*.mp3
+*.m4a
+_upload_to_hf/
+
+# Model files (too large)
+models/*.pth
+models/*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp

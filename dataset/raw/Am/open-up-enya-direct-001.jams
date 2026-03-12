@@ -1,0 +1,108 @@
+{
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "standardize_to_jams.py",
+        "annotation_rules": "Static guitar chord recording - MIR Standard",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 7.8,
+          "value": "A:min",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": "",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 7.8,
+          "value": "up",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "file_metadata": {
+    "title": "open-up-enya-direct-001.wav",
+    "artist": "\u8983\u7fd8 (Qin Qiao)",
+    "release": "",
+    "duration": 7.8,
+    "identifiers": {
+      "chord": "Am",
+      "position": "open",
+      "technique": "up",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "001"
+    },
+    "jams_version": "0.3.5"
+  },
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "0.1.0",
+      "author": "\u8983\u7fd8 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "Am",
+      "jams_chord": "A:min",
+      "position": "open",
+      "technique": "up",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "001",
+      "string_age_days": 419,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -18.52,
+      "fretboard": [
+        "x",
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "recorded_at": "2026-02-24T18:20:47.925120",
+      "file_mtime": 1771928447.92512
+    }
+  }
+}

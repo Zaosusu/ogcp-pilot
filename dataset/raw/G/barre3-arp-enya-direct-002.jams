@@ -1,0 +1,108 @@
+{
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "standardize_to_jams.py",
+        "annotation_rules": "Static guitar chord recording - MIR Standard",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 12.04,
+          "value": "G:maj",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": "",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 12.04,
+          "value": "arp",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "file_metadata": {
+    "title": "barre3-arp-enya-direct-002.wav",
+    "artist": "\u8983\u7fd8 (Qin Qiao)",
+    "release": "",
+    "duration": 12.04,
+    "identifiers": {
+      "chord": "G",
+      "position": "barre3",
+      "technique": "arp",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "002"
+    },
+    "jams_version": "0.3.5"
+  },
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "0.1.0",
+      "author": "\u8983\u7fd8 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "G",
+      "jams_chord": "G:maj",
+      "position": "barre3",
+      "technique": "arp",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "002",
+      "string_age_days": 415,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -18.21,
+      "fretboard": [
+        3,
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "recorded_at": "2026-02-20T12:02:07.962435",
+      "file_mtime": 1771560127.9624345
+    }
+  }
+}

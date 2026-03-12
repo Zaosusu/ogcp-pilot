@@ -1,0 +1,108 @@
+{
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "standardize_to_jams.py",
+        "annotation_rules": "Static guitar chord recording - MIR Standard",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 4.56,
+          "value": "E:min",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "\u8983\u7fd8 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": "",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 4.56,
+          "value": "down",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "file_metadata": {
+    "title": "barre7-down-enya-direct-002.wav",
+    "artist": "\u8983\u7fd8 (Qin Qiao)",
+    "release": "",
+    "duration": 4.56,
+    "identifiers": {
+      "chord": "Em",
+      "position": "barre7",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "002"
+    },
+    "jams_version": "0.3.5"
+  },
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "0.1.0",
+      "author": "\u8983\u7fd8 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "Em",
+      "jams_chord": "E:min",
+      "position": "barre7",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "002",
+      "string_age_days": 433,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -18.79,
+      "fretboard": [
+        "x",
+        7,
+        9,
+        9,
+        8,
+        7
+      ],
+      "recorded_at": "2026-03-10T19:44:45.143148",
+      "file_mtime": 1773143085.143148
+    }
+  }
+}

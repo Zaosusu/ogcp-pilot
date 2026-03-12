@@ -1,0 +1,43 @@
+﻿# OGCP-Pilot: A Physics-Aware Guitar Chord Dataset for Robust Recognition
+
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+**OGCP (Open Guitar Chord Project) Pilot Study v1.0**
+
+*660 high-fidelity samples with physical annotations for domain-robust chord recognition*
+
+## Quick Start
+
+```python
+from ogcp import OGCPDataset
+
+dataset = OGCPDataset(root_dir="dataset/raw")
+print(len(dataset))  # 660
+```
+
+## Data Distribution
+
+| Component | Location |
+|:---|:---|
+| **Code & SDK** | This GitHub repo |
+| **Annotations** | `dataset/raw/*.jams` |
+| **Audio Files** | [Hugging Face](https://huggingface.co/datasets/YOUR_USERNAME/ogcp-pilot) |
+
+## Dataset Statistics
+
+| Attribute | Value |
+|:---|:---|
+| Total Samples | 660 |
+| Chord Classes | 14 |
+| Recording Device | Enya NEXG2xCCS |
+
+## Citation
+
+```bibtex
+@dataset{qiao2026ogcp,
+  author = {Qin Qiao},
+  title = {OGCP Pilot: A Physics-Aware Guitar Chord Dataset},
+  year = {2026},
+  version = {1.0}
+}
+```
