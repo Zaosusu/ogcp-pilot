@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ogcp"
+version = "1.0.0"
+description = "OpenGuitarChordProject Python SDK - A Physics-Aware Guitar Chord Dataset Toolkit"
+authors = [
+    {name = "覃翘 (Qin Qiao) (QQ)", email = "qinqiao2014@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "jams>=0.3.4",
+    "matplotlib>=3.5.0",
+    "numpy>=1.21.0",
+    "huggingface-hub",
+]
+
+[project.optional-dependencies]
+viz = ["librosa>=0.9.0"]
+dev = ["pytest", "black", "flake8"]
+
+[project.urls]
+Homepage = "https://zaosusu.github.io"
+Repository = "https://github.com/Zaosusu/ogcp-pilot"
+Documentation = "https://github.com/Zaosusu/ogcp-pilot#readme"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ogcp*"]
+exclude = ["ml*", "tests*"]
+
+[tool.setuptools.package-dir]
+"" = "src"
