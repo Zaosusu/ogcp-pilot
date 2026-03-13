@@ -49,8 +49,7 @@ def _download_from_hf(root_dir: Path) -> None:
     )
     print(f"下载完成，文件已保存到: {root_dir}")
 
-
-
+SAMPLE_RATE   = 44100
 N_MELS        = 128
 N_FFT         = 2048
 HOP_LENGTH    = 512

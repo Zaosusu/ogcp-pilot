@@ -32,11 +32,20 @@ def _download_from_hf(root_dir: Path) -> None:
     try:
         from huggingface_hub import snapshot_download
     except ImportError:
-        raise ImportError(
-            "huggingface_hub is required for auto-download. "
-            "Install with: pip install huggingface_hub"
-        )
-    print(f"本地数据集未找到，正在从 Hugging Face 下载 ({HF_REPO_ID})...")
+        raise ImportError(...)
+    
+    import os
+    import urllib.request
+    # 检测 HuggingFace 是否可达，不行就用镜像
+    try:
+        urllib.request.urlopen("https://huggingface.co", timeout=5)
+        endpoint = "https://huggingface.co"
+    except Exception:
+        print("HuggingFace 不可达，切换到镜像站...")
+        endpoint = "https://hf-mirror.com"
+        os.environ["HF_ENDPOINT"] = endpoint
+
+    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID})...")
     snapshot_download(
         repo_id=HF_REPO_ID,
         repo_type="dataset",
