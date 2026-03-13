@@ -32,26 +32,27 @@ def _download_from_hf(root_dir: Path) -> None:
     try:
         from huggingface_hub import snapshot_download
     except ImportError:
-        raise ImportError(...)
-    
-    import os
-    import urllib.request
-    # 检测 HuggingFace 是否可达，不行就用镜像
+        raise ImportError(
+            "huggingface_hub is required for auto-download. "
+            "Install with: pip install huggingface_hub"
+        )
+    import os, urllib.request
     try:
-        urllib.request.urlopen("https://huggingface.co", timeout=5)
-        endpoint = "https://huggingface.co"
-    except Exception:
-        print("HuggingFace 不可达，切换到镜像站...")
+        urllib.request.urlopen("https://hf-mirror.com", timeout=5)
         endpoint = "https://hf-mirror.com"
         os.environ["HF_ENDPOINT"] = endpoint
-
-    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID})...")
+    except Exception:
+        print("镜像站不可达，切换到官网...")
+        endpoint = "https://huggingface.co"
+    local_dir = root_dir.parent.parent / "_upload_to_hf" / "wav_files"
+    local_dir.mkdir(parents=True, exist_ok=True)
+    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {local_dir}...")
     snapshot_download(
         repo_id=HF_REPO_ID,
         repo_type="dataset",
-        local_dir=str(root_dir),
+        local_dir=str(local_dir),
     )
-    print(f"下载完成，文件已保存到: {root_dir}")
+    print(f"下载完成，文件已保存到: {local_dir}")
 
 
 class GuitarChordDataset(Dataset):
@@ -83,13 +84,13 @@ class GuitarChordDataset(Dataset):
         print(f"[{split}] {len(self.samples)} 个样本")
 
     def _collect_samples(self):
-        # 没有 WAV 文件则自动从 Hugging Face 下载
-        if not list(self.root_dir.rglob("*.wav")):
+        upload_dir = self.root_dir.parent.parent / "_upload_to_hf" / "wav_files"
+        if len(list(upload_dir.rglob("*.wav"))) < 660:
             _download_from_hf(self.root_dir)
 
         samples = []
         for chord in CHORD_LABELS:
-            chord_dir = self.root_dir / chord
+            chord_dir = upload_dir / chord
             if not chord_dir.exists():
                 continue
             for wav_path in sorted(chord_dir.glob("*.wav")):
