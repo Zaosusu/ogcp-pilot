@@ -21,7 +21,27 @@ CHORD_LABELS = [
 CHORD_TO_IDX = {c: i for i, c in enumerate(CHORD_LABELS)}
 IDX_TO_CHORD = {i: c for c, i in CHORD_TO_IDX.items()}
 
-SAMPLE_RATE   = 44100
+HF_REPO_ID = "Zaosusu/ogcp-pilot"
+
+
+def _download_from_hf(root_dir: Path) -> None:
+    try:
+        from huggingface_hub import snapshot_download
+    except ImportError:
+        raise ImportError(
+            "huggingface_hub is required for auto-download. "
+            "Install with: pip install huggingface_hub"
+        )
+    print(f"本地数据集未找到，正在从 Hugging Face 下载 ({HF_REPO_ID})...")
+    snapshot_download(
+        repo_id=HF_REPO_ID,
+        repo_type="dataset",
+        local_dir=str(root_dir),
+    )
+    print(f"下载完成，文件已保存到: {root_dir}")
+
+
+
 N_MELS        = 128
 N_FFT         = 2048
 HOP_LENGTH    = 512
@@ -40,12 +60,6 @@ class GuitarChordDataset(Dataset):
         )
         self.db_transform = T.AmplitudeToDB(top_db=80)
 
-        # 音频文件可能的位置（优先 dataset/raw，其次 _upload_to_hf/wav_files）
-        self.audio_roots = [
-            self.root_dir,  # dataset/raw/
-            self.root_dir.parent.parent / "_upload_to_hf" / "wav_files"  # _upload_to_hf/wav_files/
-        ]
-
         all_samples = self._collect_samples()
         rng = np.random.default_rng(seed)
         indices = rng.permutation(len(all_samples))
@@ -63,18 +77,18 @@ class GuitarChordDataset(Dataset):
         print(f"[{split}] {len(self.samples)} 个样本")
 
     def _collect_samples(self):
+        # 检查是否有任何 WAV 文件，没有则自动下载
+        wav_files = list(self.root_dir.rglob("*.wav"))
+        if not wav_files:
+            _download_from_hf(self.root_dir)
+
         samples = []
         for chord in CHORD_LABELS:
-            wav_found = False
-            for audio_root in self.audio_roots:
-                chord_dir = audio_root / chord
-                if chord_dir.exists():
-                    wav_files = list(chord_dir.glob("*.wav"))
-                    for wav_path in wav_files:
-                        samples.append((wav_path, CHORD_TO_IDX[chord]))
-                    if wav_files:
-                        wav_found = True
-                        break  # 找到了就跳出，不再找下一个 audio_root
+            chord_dir = self.root_dir / chord
+            if not chord_dir.exists():
+                continue
+            for wav_path in sorted(chord_dir.glob("*.wav")):
+                samples.append((wav_path, CHORD_TO_IDX[chord]))
         return samples
 
     def __len__(self):

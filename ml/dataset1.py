@@ -25,6 +25,25 @@ N_FFT         = 2048
 HOP_LENGTH    = 512
 TARGET_LENGTH = 128
 
+HF_REPO_ID = "Zaosusu/ogcp-pilot"
+
+
+def _download_from_hf(root_dir: Path) -> None:
+    try:
+        from huggingface_hub import snapshot_download
+    except ImportError:
+        raise ImportError(
+            "huggingface_hub is required for auto-download. "
+            "Install with: pip install huggingface_hub"
+        )
+    print(f"本地数据集未找到，正在从 Hugging Face 下载 ({HF_REPO_ID})...")
+    snapshot_download(
+        repo_id=HF_REPO_ID,
+        repo_type="dataset",
+        local_dir=str(root_dir),
+    )
+    print(f"下载完成，文件已保存到: {root_dir}")
+
 
 class GuitarChordDataset(Dataset):
     def __init__(self, root_dir: str, split: str = "train",
@@ -55,18 +74,17 @@ class GuitarChordDataset(Dataset):
         print(f"[{split}] {len(self.samples)} 个样本")
 
     def _collect_samples(self):
+        # 没有 WAV 文件则自动从 Hugging Face 下载
+        if not list(self.root_dir.rglob("*.wav")):
+            _download_from_hf(self.root_dir)
+
         samples = []
         for chord in CHORD_LABELS:
-            # 优先从 dataset/raw/ 找 .wav，如果没有则从 _upload_to_hf/wav_files/ 找
-            wav_found = False
-            for audio_root in self.audio_roots:
-                chord_dir = audio_root / chord
-                if chord_dir.exists():
-                    for wav_path in sorted(chord_dir.glob("*.wav")):
-                        samples.append((wav_path, CHORD_TO_IDX[chord]))
-                        wav_found = True
-                if wav_found:
-                    break
+            chord_dir = self.root_dir / chord
+            if not chord_dir.exists():
+                continue
+            for wav_path in sorted(chord_dir.glob("*.wav")):
+                samples.append((wav_path, CHORD_TO_IDX[chord]))
         return samples
 
     def __len__(self):
