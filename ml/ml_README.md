@@ -42,7 +42,7 @@ python ml/train.py --data_dir dataset/raw
 # Custom settings
 python ml/train.py \
     --data_dir   dataset/raw \
-    --epochs     80 \
+    --epochs     50 \
     --batch_size 32 \
     --lr         3e-4 \
     --model      small
@@ -147,7 +147,7 @@ python ml/train.py --data_dir dataset/raw
 # 自定义参数
 python ml/train.py \
     --data_dir   dataset/raw \
-    --epochs     80 \
+    --epochs     50 \
     --batch_size 32 \
     --lr         3e-4 \
     --model      small
