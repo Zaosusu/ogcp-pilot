@@ -46,6 +46,10 @@ python ml/train.py \
     --batch_size 32 \
     --lr         3e-4 \
     --model      small
+    --verbose
+# Enable verbose monitoring (shows CPU/GPU timing per batch)
+python ml/train.py --data_dir dataset/raw --verbose
+
 ```
 
 After training, the following files are auto-generated in `models/`:
@@ -147,6 +151,9 @@ python ml/train.py \
     --batch_size 32 \
     --lr         3e-4 \
     --model      small
+    --verbose
+# 开启详细监控模式（显示每 batch 的 CPU/GPU 耗时分布）
+python ml/train.py --data_dir dataset/raw --verbose
 ```
 
 训练结束后 `models/` 目录下自动生成：

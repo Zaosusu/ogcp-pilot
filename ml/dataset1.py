@@ -1,10 +1,10 @@
 """
-OpenGuitarChordProject - Dataset Loader
-使用 soundfile 读取音频，无需 FFmpeg / torchcodec
+OpenGuitarChordProject - Dataset Loader (GPU版，简化增强)
+Dataset只返回原始波形，梅尔频谱在GPU上计算
 """
 
 import torch
-import torchaudio.transforms as T
+import torch.nn.functional as F
 import soundfile as sf
 from torch.utils.data import Dataset, DataLoader
 from pathlib import Path
@@ -20,10 +20,7 @@ CHORD_TO_IDX = {c: i for i, c in enumerate(CHORD_LABELS)}
 IDX_TO_CHORD = {i: c for c, i in CHORD_TO_IDX.items()}
 
 SAMPLE_RATE   = 44100
-N_MELS        = 128
-N_FFT         = 2048
-HOP_LENGTH    = 512
-TARGET_LENGTH = 128
+MAX_SAMPLES   = 128 * 512
 
 HF_REPO_ID = "Zaosusu/ogcp-pilot"
 
@@ -32,26 +29,18 @@ def _download_from_hf(root_dir: Path) -> None:
     try:
         from huggingface_hub import snapshot_download
     except ImportError:
-        raise ImportError(
-            "huggingface_hub is required for auto-download. "
-            "Install with: pip install huggingface_hub"
-        )
+        raise ImportError("huggingface_hub is required")
     import os, urllib.request
     try:
         urllib.request.urlopen("https://hf-mirror.com", timeout=5)
         endpoint = "https://hf-mirror.com"
         os.environ["HF_ENDPOINT"] = endpoint
     except Exception:
-        print("镜像站不可达，切换到官网...")
         endpoint = "https://huggingface.co"
     local_dir = root_dir.parent.parent
-    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {local_dir}...")
-    snapshot_download(
-        repo_id=HF_REPO_ID,
-        repo_type="dataset",
-        local_dir=str(local_dir),
-    )
-    print(f"下载完成，文件已保存到: {root_dir}")
+    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID})...")
+    snapshot_download(repo_id=HF_REPO_ID, repo_type="dataset", local_dir=str(local_dir))
+    print(f"下载完成: {root_dir}")
 
 
 class GuitarChordDataset(Dataset):
@@ -60,11 +49,6 @@ class GuitarChordDataset(Dataset):
                  augment: bool = False):
         self.root_dir = Path(root_dir)
         self.augment  = augment and (split == "train")
-        self.mel_transform = T.MelSpectrogram(
-            sample_rate=SAMPLE_RATE, n_fft=N_FFT,
-            hop_length=HOP_LENGTH, n_mels=N_MELS,
-        )
-        self.db_transform = T.AmplitudeToDB(top_db=80)
 
         all_samples = self._collect_samples()
         rng = np.random.default_rng(seed)
@@ -102,38 +86,52 @@ class GuitarChordDataset(Dataset):
     def __getitem__(self, idx):
         wav_path, label = self.samples[idx]
 
-        # soundfile 读取，无需 FFmpeg
+        # 加载音频
         data, sr = sf.read(str(wav_path), dtype="float32", always_2d=True)
-        waveform = torch.from_numpy(data.T)  # [channels, samples]
+        waveform = torch.from_numpy(data.T)
 
+        # 重采样
         if sr != SAMPLE_RATE:
             import torchaudio
             waveform = torchaudio.functional.resample(waveform, sr, SAMPLE_RATE)
 
+        # 转单声道
         if waveform.shape[0] > 1:
             waveform = waveform.mean(dim=0, keepdim=True)
 
+        # 基础数据增强
         if self.augment:
             waveform = self._augment(waveform)
 
-        mel = self.mel_transform(waveform)
-        mel = self.db_transform(mel)
-
-        t = mel.shape[-1]
-        if t < TARGET_LENGTH:
-            mel = torch.nn.functional.pad(mel, (0, TARGET_LENGTH - t))
-        else:
-            mel = mel[..., :TARGET_LENGTH]
-
-        mel = (mel - mel.mean()) / (mel.std() + 1e-8)
-        return mel, label
+        # 返回原始波形，不做梅尔频谱
+        return waveform.squeeze(0), label
 
     def _augment(self, waveform):
+        # 随机音量 ±3dB
         gain = 10 ** (torch.FloatTensor(1).uniform_(-3, 3) / 20)
         waveform = waveform * gain
+        
+        # 随机时移（最多 0.1s）
         shift = int(torch.randint(0, int(0.1 * SAMPLE_RATE), (1,)).item())
         waveform = torch.roll(waveform, shift, dims=-1)
+        
         return waveform
+
+
+def collate_fn(batch):
+    """处理变长音频"""
+    waveforms, labels = zip(*batch)
+    max_len = min(max(w.shape[0] for w in waveforms), MAX_SAMPLES * 2)
+    
+    padded = []
+    for w in waveforms:
+        if w.shape[0] < max_len:
+            w = F.pad(w, (0, max_len - w.shape[0]))
+        else:
+            w = w[:max_len]
+        padded.append(w)
+    
+    return torch.stack(padded), torch.tensor(labels)
 
 
 def get_dataloaders(root_dir: str, batch_size: int = 32, num_workers: int = 4):
@@ -141,11 +139,17 @@ def get_dataloaders(root_dir: str, batch_size: int = 32, num_workers: int = 4):
     val_ds   = GuitarChordDataset(root_dir, split="val",   augment=False)
     test_ds  = GuitarChordDataset(root_dir, split="test",  augment=False)
 
-    train_loader = DataLoader(train_ds, batch_size=batch_size,
-                              shuffle=True,  num_workers=num_workers, pin_memory=True)
-    val_loader   = DataLoader(val_ds,   batch_size=batch_size,
-                              shuffle=False, num_workers=num_workers, pin_memory=True)
-    test_loader  = DataLoader(test_ds,  batch_size=batch_size,
-                              shuffle=False, num_workers=num_workers, pin_memory=True)
+    train_loader = DataLoader(
+        train_ds, batch_size=batch_size, shuffle=True,
+        num_workers=num_workers, pin_memory=True, collate_fn=collate_fn
+    )
+    val_loader = DataLoader(
+        val_ds, batch_size=batch_size, shuffle=False,
+        num_workers=num_workers, pin_memory=True, collate_fn=collate_fn
+    )
+    test_loader = DataLoader(
+        test_ds, batch_size=batch_size, shuffle=False,
+        num_workers=num_workers, pin_memory=True, collate_fn=collate_fn
+    )
 
     return train_loader, val_loader, test_loader
