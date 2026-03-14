@@ -55,11 +55,20 @@ def _download_from_hf(root_dir: Path) -> None:
             "Install with: pip install huggingface_hub"
         )
 
-    print(f"Local dataset not found. Downloading from Hugging Face ({HF_REPO_ID})...")
+    import os, urllib.request
+    try:
+        urllib.request.urlopen("https://hf-mirror.com", timeout=5)
+        endpoint = "https://hf-mirror.com"
+        os.environ["HF_ENDPOINT"] = endpoint
+    except Exception:
+        print("Mirror unreachable, falling back to official site...")
+        endpoint = "https://huggingface.co"
+
+    print(f"Downloading from {endpoint} ({HF_REPO_ID})...")
     snapshot_download(
         repo_id=HF_REPO_ID,
         repo_type="dataset",
-        local_dir=str(root_dir),
+        local_dir=str(root_dir.parent.parent),
     )
     print(f"Download complete. Files saved to: {root_dir}")
 

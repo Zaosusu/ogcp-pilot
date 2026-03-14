@@ -40,12 +40,12 @@ def _download_from_hf(root_dir: Path) -> None:
     except Exception:
         print("镜像站不可达，切换到官网...")
         endpoint = "https://huggingface.co"
-    root_dir.mkdir(parents=True, exist_ok=True)
-    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {root_dir}...")
+    local_dir = root_dir.parent.parent
+    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {local_dir}...")
     snapshot_download(
         repo_id=HF_REPO_ID,
         repo_type="dataset",
-        local_dir=str(root_dir),
+        local_dir=str(local_dir),
     )
     print(f"下载完成，文件已保存到: {root_dir}")
 
@@ -86,6 +86,7 @@ class GuitarChordDataset(Dataset):
         print(f"[{split}] {len(self.samples)} 个样本")
 
     def _collect_samples(self):
+        self.root_dir.mkdir(parents=True, exist_ok=True)
         if len(list(self.root_dir.rglob("*.wav"))) < 660:
             _download_from_hf(self.root_dir)
 
