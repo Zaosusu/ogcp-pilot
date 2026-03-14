@@ -220,8 +220,7 @@ class OGCPDataset(Dataset):
         
         # Priority 2: Use root_dir (dataset/raw)
         if scan_dir is None:
-            if not self.root_dir.exists():
-                raise FileNotFoundError(f"Dataset directory not found: {self.root_dir}")
+            self.root_dir.mkdir(parents=True, exist_ok=True)
             
             wav_files = list(self.root_dir.rglob("*.wav"))
             

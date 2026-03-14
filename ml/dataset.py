@@ -40,15 +40,14 @@ def _download_from_hf(root_dir: Path) -> None:
     except Exception:
         print("镜像站不可达，切换到官网...")
         endpoint = "https://huggingface.co"
-    local_dir = root_dir.parent.parent / "_upload_to_hf" / "wav_files"
-    local_dir.mkdir(parents=True, exist_ok=True)
-    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {local_dir}...")
+    root_dir.mkdir(parents=True, exist_ok=True)
+    print(f"正在从 {endpoint} 下载 ({HF_REPO_ID}) 到 {root_dir}...")
     snapshot_download(
         repo_id=HF_REPO_ID,
         repo_type="dataset",
-        local_dir=str(local_dir),
+        local_dir=str(root_dir),
     )
-    print(f"下载完成，文件已保存到: {local_dir}")
+    print(f"下载完成，文件已保存到: {root_dir}")
 
 
 SAMPLE_RATE   = 44100
@@ -87,13 +86,12 @@ class GuitarChordDataset(Dataset):
         print(f"[{split}] {len(self.samples)} 个样本")
 
     def _collect_samples(self):
-        upload_dir = self.root_dir.parent.parent / "_upload_to_hf" / "wav_files"
-        if len(list(upload_dir.rglob("*.wav"))) < 660:
+        if len(list(self.root_dir.rglob("*.wav"))) < 660:
             _download_from_hf(self.root_dir)
 
         samples = []
         for chord in CHORD_LABELS:
-            chord_dir = upload_dir / chord
+            chord_dir = self.root_dir / chord
             if not chord_dir.exists():
                 continue
             for wav_path in sorted(chord_dir.glob("*.wav")):
