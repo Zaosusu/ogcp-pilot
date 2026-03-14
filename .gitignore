@@ -1,8 +1,7 @@
-﻿# Audio files (too large, host on Hugging Face)
+# Audio files (too large, host on Hugging Face)
 *.wav
 *.mp3
 *.m4a
-_upload_to_hf/
 
 # Model files (too large)
 models/*.pth
@@ -20,3 +19,7 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Build / packaging
+dist/
+build/
