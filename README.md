@@ -22,23 +22,23 @@ pip install ogcp
 from ogcp import OGCPDataset, plot_fretboard
 import matplotlib.pyplot as plt
 
-# 1. 加载数据集（首次运行自动从 Hugging Face 下载）
+# 1. Load dataset (auto-downloads from Hugging Face on first run)
 dataset = OGCPDataset(root_dir='dataset/raw')
 print(len(dataset))  # 660
 
-# 2. 查看数据集统计
+# 2. Dataset statistics
 print(dataset.statistics())
 
-# 3. 按和弦类型过滤
+# 3. Filter by chord type
 dm_dataset = OGCPDataset(root_dir='dataset/raw', chord_filter=['D:min'])
-print(len(dm_dataset))  # 只含 Dm 样本
+print(len(dm_dataset))  # Dm samples only
 
-# 4. 获取某个和弦的所有样本
+# 4. Get all samples for a specific chord
 samples = dataset.get_by_chord('C:maj')
 sample = samples[0]
 print(sample)  # ChordSample(C:maj, open/down, fretboard=[x, 3, 2, 0, 1, 0])
 
-# 5. 生成把位图
+# 5. Plot fingerboard diagram
 fig = plot_fretboard(
     sample.fretboard,
     chord_name=sample.chord_name,
@@ -46,11 +46,11 @@ fig = plot_fretboard(
 )
 plt.show()
 
-# 6. 查看和弦分布
+# 6. Chord distribution
 print(dataset.get_chord_distribution())
 ```
 
-> For training and inference, see [`ml/ml_README.md`](ml/ml_README.md).
+> For training and inference, see [`ml/README.md`](ml/README.md).
 
 ## Data Distribution
 
@@ -115,7 +115,7 @@ plt.show()
 print(dataset.get_chord_distribution())
 ```
 
-> 训练与推理说明请见 [`ml/ml_README.md`](ml/ml_README.md)。
+> 训练与推理说明请见 [`ml/README.md`](ml/README.md)。
 
 ### 数据分布
 
