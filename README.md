@@ -50,7 +50,7 @@ plt.show()
 print(dataset.get_chord_distribution())
 ```
 
-> For training and inference, see [`ml/README.md`](ml/ml_README.md).
+> For training and inference, see [`ml/ml_README.md`](ml/ml_README.md).
 
 ## Data Distribution
 
@@ -115,7 +115,7 @@ plt.show()
 print(dataset.get_chord_distribution())
 ```
 
-> 训练与推理说明请见 [`ml/README.md`](ml/ml_README.md)。
+> 训练与推理说明请见 [`ml/ml_README.md`](ml/ml_README.md)。
 
 ### 数据分布
 
