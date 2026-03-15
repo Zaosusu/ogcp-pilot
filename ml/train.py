@@ -21,9 +21,8 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import CosineAnnealingLR
 import torchaudio.transforms as T
 
-from dataset import get_dataloaders, CHORD_LABELS
 from model import get_model
-
+from dataset import SAMPLE_RATE, N_FFT, HOP_LENGTH, N_MELS,get_dataloaders, CHORD_LABELS
 
 def accuracy(outputs, labels):
     preds = outputs.argmax(dim=1)
@@ -202,9 +201,8 @@ def main(args):
     # GPU上创建梅尔频谱变换
     print(f"\n初始化梅尔频谱变换到 {device}...")
     mel_transform = T.MelSpectrogram(
-        sample_rate=44100, n_fft=2048,
-        hop_length=512, n_mels=128,
-    ).to(device)
+    sample_rate=SAMPLE_RATE, n_fft=N_FFT,
+    hop_length=HOP_LENGTH, n_mels=N_MELS).to(device)
     
     db_transform = T.AmplitudeToDB(top_db=80).to(device)
     print(f"梅尔频谱变换设备: {mel_transform.mel_scale.fb.device}")

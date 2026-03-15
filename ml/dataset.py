@@ -22,7 +22,12 @@ IDX_TO_CHORD = {i: c for c, i in CHORD_TO_IDX.items()}
 
 HF_REPO_ID = "Zaosusu/ogcp-pilot"
 
+# ── 音频参数（训练和推理共用）────────────────────────
 SAMPLE_RATE   = 44100
+N_FFT         = 2048
+HOP_LENGTH    = 512
+N_MELS        = 128
+TARGET_LENGTH = 128  # 时间帧数（约1.49秒）
 MAX_SAMPLES   = 128 * 512  # 约1.5秒音频
 
 

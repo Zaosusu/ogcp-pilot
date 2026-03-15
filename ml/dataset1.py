@@ -19,10 +19,17 @@ CHORD_LABELS = [
 CHORD_TO_IDX = {c: i for i, c in enumerate(CHORD_LABELS)}
 IDX_TO_CHORD = {i: c for c, i in CHORD_TO_IDX.items()}
 
-SAMPLE_RATE   = 44100
-MAX_SAMPLES   = 128 * 512
-
 HF_REPO_ID = "Zaosusu/ogcp-pilot"
+
+# ── 音频参数（训练和推理共用）────────────────────────
+SAMPLE_RATE   = 44100
+N_FFT         = 2048
+HOP_LENGTH    = 512
+N_MELS        = 128
+TARGET_LENGTH = 128  # 时间帧数（约1.49秒）
+MAX_SAMPLES   = 128 * 512  # 约1.5秒音频
+
+
 
 
 def _download_from_hf(root_dir: Path) -> None:

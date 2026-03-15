@@ -4,8 +4,8 @@
 *.m4a
 
 # Model files (too large)
-models/*.pth
-models/*.pt
+models/
+
 
 # Python
 __pycache__/
