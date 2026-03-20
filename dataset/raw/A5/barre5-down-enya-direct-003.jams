@@ -1,0 +1,108 @@
+{
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "standardize_to_jams.py",
+        "annotation_rules": "Static guitar chord recording - MIR Standard",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 4.62,
+          "value": "A:5",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": "",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 4.62,
+          "value": "down",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "file_metadata": {
+    "title": "barre5-down-enya-direct-003.wav",
+    "artist": "覃翘 (Qin Qiao)",
+    "release": "",
+    "duration": 4.62,
+    "identifiers": {
+      "chord": "A5",
+      "position": "barre5",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "003"
+    },
+    "jams_version": "0.3.5"
+  },
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "1.1.0",
+      "author": "覃翘 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "A5",
+      "jams_chord": "A:5",
+      "position": "barre5",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "003",
+      "string_age_days": 438,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -16.17,
+      "fretboard": [
+        5,
+        7,
+        7,
+        "x",
+        "x",
+        "x"
+      ],
+      "recorded_at": "2026-03-15T19:29:51.453143",
+      "file_mtime": 1773574191.453143
+    }
+  }
+}

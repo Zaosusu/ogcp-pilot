@@ -1,0 +1,108 @@
+{
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "standardize_to_jams.py",
+        "annotation_rules": "Static guitar chord recording - MIR Standard",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 1.44,
+          "value": "B:5",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": "",
+        "validation": "",
+        "data_source": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 1.44,
+          "value": "chop",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "file_metadata": {
+    "title": "barre7-chop-enya-direct-004.wav",
+    "artist": "覃翘 (Qin Qiao)",
+    "release": "",
+    "duration": 1.44,
+    "identifiers": {
+      "chord": "B5",
+      "position": "barre7",
+      "technique": "chop",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "004"
+    },
+    "jams_version": "0.3.5"
+  },
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "1.1.0",
+      "author": "覃翘 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "B5",
+      "jams_chord": "B:5",
+      "position": "barre7",
+      "technique": "chop",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "004",
+      "string_age_days": 441,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -22.23,
+      "fretboard": [
+        7,
+        9,
+        9,
+        "x",
+        "x",
+        "x"
+      ],
+      "recorded_at": "2026-03-18T21:52:26.388601",
+      "file_mtime": 1773841946.3886008
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "file_metadata": {
+    "title": "barre9-down-enya-direct-004.wav",
+    "artist": "覃翘 (Qin Qiao)",
+    "release": "",
+    "duration": 7.16,
+    "identifiers": {
+      "chord": "B5",
+      "position": "barre9",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "004"
+    },
+    "jams_version": "0.3.5"
+  },
+  "annotations": [
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "manual_annotation",
+        "annotation_rules": "Static guitar chord recording - MIR Standard"
+      },
+      "namespace": "chord",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 7.16,
+          "value": "B:5",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    },
+    {
+      "annotation_metadata": {
+        "curator": {
+          "name": "",
+          "email": ""
+        },
+        "annotator": {
+          "name": "覃翘 (Qin Qiao) (QQ)",
+          "email": "qinqiao2014@gmail.com"
+        },
+        "version": "0.1.0",
+        "corpus": "OpenGuitarChordProject",
+        "annotation_tools": "",
+        "annotation_rules": ""
+      },
+      "namespace": "tag_open",
+      "data": [
+        {
+          "time": 0.0,
+          "duration": 7.16,
+          "value": "down",
+          "confidence": 1.0
+        }
+      ],
+      "sandbox": {},
+      "time": 0,
+      "duration": null
+    }
+  ],
+  "sandbox": {
+    "ogcp": {
+      "project": "OpenGuitarChordProject",
+      "version": "1.1.0",
+      "author": "覃翘 (Qin Qiao)",
+      "author_alias": "QQ",
+      "author_email": "qinqiao2014@gmail.com",
+      "chord": "B5",
+      "jams_chord": "B:5",
+      "position": "barre9",
+      "technique": "down",
+      "guitar": "NEXG2xCCS",
+      "source": "direct",
+      "sequence": "004",
+      "string_age_days": 443,
+      "last_string_change": "2025-01-01",
+      "noise_level_db": -50.0,
+      "fretboard": [
+        "x",
+        "x",
+        9,
+        11,
+        12,
+        "x"
+      ],
+      "recorded_at": "2026-03-20T22:37:50.410840",
+      "file_mtime": 1774017294.0586627
+    }
+  }
+}
